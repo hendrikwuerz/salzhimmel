@@ -1,9 +1,10 @@
 @import 'reset';
 
 $blueFont: #000000;
-//$blueBackground: rgba(74,106,160,0.4);
 $blueBackground: #eeeeff;
-$menuWidth: 200px;
+$blueHover: rgba(0,50,255,0.2);
+$headerHeight: 100px;
+$menuWidth: 220px;
 
 h1, h2, h3, a {
   color: $blueFont;
@@ -49,8 +50,7 @@ html.background #background {
 #header {
   order: 0;
   flex: 1 100%;
-  $height: 100px;
-  height: $height;
+  height: $headerHeight;
   position: relative;
 
   img {
@@ -65,7 +65,7 @@ html.background #background {
     top: 0;
     text-align: center;
     font-size: 70px;
-    line-height: $height;
+    line-height: $headerHeight;
   }
 
 }
@@ -78,36 +78,35 @@ nav {
   a {
     font-size: 1.3em;
     text-decoration: none;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $blueHover;
+    }
   }
 
   ul {
     background-color: $blueBackground;
   }
 
+  ul, li {
+  }
+
   & > ul > li {
-    padding: 5px;
-
-    & > a {
-      text-align: center;
-      display: block;
-      width: 100%;
-
-      &:before {
-        background: url("img/home.svg") no-repeat left bottom;
-        background-size: 0.8em;
-        width: 1em;
-        height: 1em;
-        display: inline-block;
-        content: '';
-      }
+    & > a:before {
+      background: url("img/home.svg") no-repeat left bottom;
+      background-size: 0.8em;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      content: '';
     }
     & > ul {
-      visibility: hidden;
-      height: 0;
-    }
-    &.expanded ul {
-      visibility: visible;
-      height: auto;
+      display: none;
+      padding-left: 1em;
     }
   }
 }

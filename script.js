@@ -40,8 +40,18 @@ $(function() {
          */
         jq.nav.find('> ul > li > a').click(function(evt) {
             evt.preventDefault();
-            $(evt.target).parent().toggleClass('expanded');
-            //.siblings('ul').fadeToggle();
+            $(evt.target).blur(); // no ugly dotted line around the link
+            var ul = $(evt.target).siblings('ul');
+
+            // slide up all others
+            jq.nav.find('ul ul').each(function(idx, e) {
+                var elem = $(e);
+                if(!elem.is(ul) && elem.css('display') == 'block') {
+                    elem.slideUp();
+                }
+            });
+            //.parent()
+            ul.slideToggle();
             return false;
         });
 
