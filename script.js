@@ -12,6 +12,7 @@ $(function() {
     jq.html = $('html');
     jq.body = $('body');
     jq.background = $('#background');
+    jq.header = $('#header');
     jq.nav = $('nav');
 
     var storage = {};
@@ -81,6 +82,18 @@ $(function() {
             });
             image.src = image_url;
         }
+
+        /*
+        enable logo animation
+         */
+        image = new Image();
+        image.src = 'img/logo_animated.gif'; // preloaded image
+        jq.header.mouseenter(function() {
+            jq.header.find('img').attr('src', 'img/logo_animated.gif');
+        });
+        jq.header.mouseleave(function() {
+            jq.header.find('img').attr('src', 'img/logo.png');
+        });
     }
 
     /*
