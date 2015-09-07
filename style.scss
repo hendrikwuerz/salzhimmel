@@ -92,21 +92,34 @@ nav {
     background-color: $blueBackground;
   }
 
-  ul, li {
-  }
-
   & > ul > li {
-    & > a:before {
-      background: url("img/home.svg") no-repeat left bottom;
-      background-size: 0.8em;
-      width: 1em;
-      height: 1em;
-      display: inline-block;
-      content: '';
+    &.home > a:before { background-image: url("img/home.svg") }
+    &.bond > a:before { background-image: url("img/bond.svg") }
+    &.cube > a:before { background-image: url("img/cube.svg") }
+    &.java > a:before { background-image: url("img/java.svg") }
+    &.book > a:before { background-image: url("img/book.svg") }
+    &.technics > a:before { background-image: url("img/technics.svg") }
+    &.stereoscopy > a:before { background-image: url("img/stereoscopy.svg") }
+
+    & > a {
+      position: relative;
+      line-height: 1.5em;
+      padding-left: 2em;
+      &:before {
+        background: no-repeat center;
+        background-size: 1.5em;
+        width: 1.5em;
+        height: 100%;
+        top: 0;
+        left: 0.2em;
+        display: inline-block;
+        position: absolute;
+        content: '';
+      }
     }
     & > ul {
       display: none;
-      padding-left: 1em;
+      padding-left: 2em;
     }
   }
 }
