@@ -37,28 +37,8 @@ $(function() {
         jq.window.resize(resize);
 
         /*
-         enable navigation expanding
-         */
-        jq.nav.find('> ul > li > a').click(function(evt) {
-            evt.preventDefault();
-            $(evt.target).blur(); // no ugly dotted line around the link
-            var ul = $(evt.target).siblings('ul');
-
-            // slide up all others
-            jq.nav.find('ul ul').each(function(idx, e) {
-                var elem = $(e);
-                if(!elem.is(ul) && elem.css('display') == 'block') {
-                    elem.slideUp();
-                }
-            });
-            //.parent()
-            ul.slideToggle();
-            return false;
-        });
-
-        /*
         set storage values
-        -> image size
+        -> size for background image
          */
         var image_url = jq.background.css('background-image');
         var image;
@@ -126,7 +106,6 @@ $(function() {
         } else { // use full height; width will overflow
             jq.background.css('background-size', 'auto ' + neededHeight + 'px');
         }
-
 
         jq.background.css('margin-top', '-' + (jq.window.scrollTop() / storage.config.paralaxFactor)+ "px");
     }
