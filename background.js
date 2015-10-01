@@ -2,6 +2,7 @@
  * Created by hendrik on 01.10.15.
  */
 
+var refreshBackground;
 
 function background() {
 
@@ -60,7 +61,7 @@ function background() {
     /**
      * updates the position of the background image
      */
-    function refreshBackground() {
+    refreshBackground = function() {
         var body = {width: jq.body.width(), height: jq.body.height()};
         var neededHeight = body.height / storage.config.paralaxFactor + body.height;
         var windowRatio = body.width / neededHeight;
@@ -72,7 +73,7 @@ function background() {
         }
 
         jq.background.css('margin-top', '-' + (jq.window.scrollTop() / storage.config.paralaxFactor)+ "px");
-    }
+    };
 
     init();
 }
