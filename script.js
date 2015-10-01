@@ -2,12 +2,25 @@
  * Created by hendrik on 06.08.15.
  */
 
-// TODO: DEBUG REMOVE IT
-var script;
+
+/**
+ * some known jquery references
+ * most of them are defined in the init methods
+ */
+var jq = {}; //
+
+/**
+ * useful data
+ * each sub script can have its own object in it.
+ * Example: background.js has its data in "storage.background.myKey"
+ * global information are stored at "storage.config.myKey"
+ */
+var storage = {};
+
 
 $(function() {
 
-    var jq = {};
+
     jq.window = $(window);
     jq.html = $('html');
     jq.body = $('body');
@@ -16,75 +29,28 @@ $(function() {
     jq.nav = $('nav');
     jq.main = $('main');
 
-    var storage = {};
     storage.config = {};
     storage.config.paralaxFactor = 3; // 3px scrolling will effect 1üx image movement
-    storage.background = {};
-    storage.background.width = 0;
-    storage.background.height = 0;
-    storage.background.ratio = 0;
-
-    // TODO: DEBUG REMOVE IT
-    script = jq;
 
     /**
      * initialize site
      */
     function init() {
-        /*
-         enable paralax scrolling for background image
-         */
-        jq.window.scroll(scroll);
-        jq.window.resize(resize);
+        // parallax scrolling
+        background();
 
-        /*
-         enable navigation expanding
-         */
-        jq.nav.find('a').click(function(evt) {
-            evt.preventDefault();
-            $(evt.target).blur(); // no ugly dotted line around the link
-            var url = $(evt.target).attr('href');
-            console.log("Zielseite: " + url);
+        // swap <main> part on page and do not reload all
+        inPageLoading();
 
-            history.pushState({}, '', url);
-            loadPage(url);
+        // show animation when mouse is over the logo
+        logoAnimation();
+    }
 
-            console.log("end");
-
-            return false;
-        });
-
-        /*
-        set storage values
-        -> size for background image
-         */
-        var image_url = jq.background.css('background-image');
-        var image;
-
-        // Remove url() or in case of Chrome url("")
-        image_url = image_url.match(/^url\("?(.+?)"?\)$/);
-
-        if (image_url[1]) {
-            image_url = image_url[1];
-            image = new Image();
-
-            // just in case it is not already loaded
-            $(image).load(function () {
-                // store image data for position calculation
-                storage.background.width = image.width;
-                storage.background.height = image.height;
-                storage.background.ratio = image.width / image.height;
-
-                refreshBackground(); // layout background
-                jq.html.addClass('background'); // display image
-            });
-            image.src = image_url;
-        }
-
-        /*
-        enable logo animation
-         */
-        image = new Image();
+    /**
+     * enable logo animation
+     */
+    function logoAnimation() {
+        var image = new Image();
         image.src = 'img/logo_animated.gif'; // preloaded image
         jq.header.mouseenter(function() {
             jq.header.find('img').attr('src', 'img/logo_animated.gif');
@@ -92,69 +58,6 @@ $(function() {
         jq.header.mouseleave(function() {
             jq.header.find('img').attr('src', 'img/logo.png');
         });
-    }
-
-    /**
-     * should be called after page content is changed from ajax call
-     * layout page again
-     * @param html
-     *          The new page which is now displayed
-     */
-    function ajaxLoad(html) {
-        document.title = html
-            .match(/<title>(.*?)<\/title>/)[1]
-            .trim();
-        refreshBackground();
-    }
-
-    /**
-     * scroll handler
-     */
-    function scroll() {
-        // paralax scrolling for background
-        refreshBackground();
-    }
-
-    /**
-     * resize handler
-     */
-    function resize() {
-        // paralax scrolling for background
-        refreshBackground();
-    }
-
-    /**
-     * "Back-Button" handler
-     */
-    $(window).on("popstate", function() {
-        loadPage(location.href); // change content with ajax
-    });
-
-    /**
-     * loads a new page in the <main> of this page
-     * for ajax page loading see https://rosspenman.com/pushstate-jquery/
-     * @param href
-     *          The url of the new page
-     */
-    function loadPage(href) {
-        jq.main.load(href + " main>*", ajaxLoad);
-    }
-
-    /**
-     * updates the position of the background image
-     */
-    function refreshBackground() {
-        var body = {width: jq.body.width(), height: jq.body.height()};
-        var neededHeight = body.height / storage.config.paralaxFactor + body.height;
-        var windowRatio = body.width / neededHeight;
-
-        if(windowRatio > storage.background.ratio) { // use full width; height will overflow
-            jq.background.css('background-size', '100% auto');
-        } else { // use full height; width will overflow
-            jq.background.css('background-size', 'auto ' + neededHeight + 'px');
-        }
-
-        jq.background.css('margin-top', '-' + (jq.window.scrollTop() / storage.config.paralaxFactor)+ "px");
     }
 
     init();
