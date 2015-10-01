@@ -14,6 +14,7 @@ $(function() {
     jq.background = $('#background');
     jq.header = $('#header');
     jq.nav = $('nav');
+    jq.main = $('main');
 
     var storage = {};
     storage.config = {};
@@ -26,8 +27,8 @@ $(function() {
     // TODO: DEBUG REMOVE IT
     script = jq;
 
-    /*
-    initialize site
+    /**
+     * initialize site
      */
     function init() {
         /*
@@ -45,16 +46,11 @@ $(function() {
             var url = $(evt.target).attr('href');
             console.log("Zielseite: " + url);
 
-            $.get('stereoscopy.tpl.html').done(function(data) {
-                displayNewPage( {pageTitle: 'Neue Seite', html: data}, url);
-            }).error(function (jqXHR, textStatus, error) {
-                console.log("boeser fehler ");
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(error);
-            });
+            history.pushState({}, '', url);
+            loadPage(url);
 
             console.log("end");
+
             return false;
         });
 
@@ -98,39 +94,54 @@ $(function() {
         });
     }
 
-    /*
-    scroll handler
+    /**
+     * should be called after page content is changed from ajax call
+     * layout page again
+     * @param html
+     *          The new page which is now displayed
+     */
+    function ajaxLoad(html) {
+        document.title = html
+            .match(/<title>(.*?)<\/title>/)[1]
+            .trim();
+        refreshBackground();
+    }
+
+    /**
+     * scroll handler
      */
     function scroll() {
         // paralax scrolling for background
         refreshBackground();
     }
 
-    /*
-    resize handler
+    /**
+     * resize handler
      */
-    function resize(event) {
+    function resize() {
         // paralax scrolling for background
         refreshBackground();
     }
 
     /**
-     * when a new page is loaded by ajax this will be called to update the
-     * displayed url and change the content
-     *
-     * @param response
-     *          The response of the ajax call - content of the new page
-     * @param urlPath
-     *          The new url
+     * "Back-Button" handler
      */
-    function displayNewPage(response, urlPath){
-        document.getElementById("content").innerHTML = response.html;
-        document.title = response.pageTitle;
-        window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
+    $(window).on("popstate", function() {
+        loadPage(location.href); // change content with ajax
+    });
+
+    /**
+     * loads a new page in the <main> of this page
+     * for ajax page loading see https://rosspenman.com/pushstate-jquery/
+     * @param href
+     *          The url of the new page
+     */
+    function loadPage(href) {
+        jq.main.load(href + " main>*", ajaxLoad);
     }
 
-    /*
-    updates the position of the background image
+    /**
+     * updates the position of the background image
      */
     function refreshBackground() {
         var body = {width: jq.body.width(), height: jq.body.height()};
