@@ -37,6 +37,28 @@ $(function() {
         jq.window.resize(resize);
 
         /*
+         enable navigation expanding
+         */
+        jq.nav.find('a').click(function(evt) {
+            evt.preventDefault();
+            $(evt.target).blur(); // no ugly dotted line around the link
+            var url = $(evt.target).attr('href');
+            console.log("Zielseite: " + url);
+
+            $.get('stereoscopy.tpl.html').done(function(data) {
+                displayNewPage( {pageTitle: 'Neue Seite', html: data}, url);
+            }).error(function (jqXHR, textStatus, error) {
+                console.log("boeser fehler ");
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(error);
+            });
+
+            console.log("end");
+            return false;
+        });
+
+        /*
         set storage values
         -> size for background image
          */
@@ -81,7 +103,6 @@ $(function() {
      */
     function scroll() {
         // paralax scrolling for background
-
         refreshBackground();
     }
 
@@ -89,8 +110,23 @@ $(function() {
     resize handler
      */
     function resize(event) {
-        console.log(event);
+        // paralax scrolling for background
         refreshBackground();
+    }
+
+    /**
+     * when a new page is loaded by ajax this will be called to update the
+     * displayed url and change the content
+     *
+     * @param response
+     *          The response of the ajax call - content of the new page
+     * @param urlPath
+     *          The new url
+     */
+    function displayNewPage(response, urlPath){
+        document.getElementById("content").innerHTML = response.html;
+        document.title = response.pageTitle;
+        window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
     }
 
     /*
