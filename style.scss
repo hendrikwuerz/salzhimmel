@@ -7,13 +7,18 @@ Author URI: http://www.salzhimmel.de
 */
 @import 'reset';
 
-$blueFont: #000000;
-$blueBackground: #eeeeff;
-$blueHover: rgba(0,50,255,0.2);
+$fontColor: #000000;
+$backgroundColor: #eeeeff;
+$backgroundColorDark: #ddddee;
+$backgroundColorHover: rgba(0,50,255,0.2);
 $headerHeight: 100px;
+$headerHeightSmall: 50px;
+$headerHeightMobile: 120px;
 $menuWidthFullSize: 220px;
 $menuWidthMinSize: 170px;
 $menuIconSize: 30px;
+$menuIconSizeMobile: 80px;
+$menuFadingTime: 1s;
 
 body {
   position: absolute;
@@ -24,7 +29,7 @@ body {
 div, span, p, a {
   font-size: 18px;
   line-height: 24px;
-  color: $blueFont;
+  color: $fontColor;
 }
 
 h1 {
@@ -52,6 +57,7 @@ html.background #background {
 
 #page-wrapper {
   max-width: 1200px;
+  max-height: 9999999999px;
   margin: auto;
 }
 
@@ -69,9 +75,10 @@ header {
   height: $headerHeight;
   position: relative;
 
-  img {
+  img.logo {
+    position: absolute;
     height: 95%;
-    padding-left: $menuWidthFullSize / 2 - 35px;
+    padding-left: $menuWidthFullSize / 2 - 45px;
   }
 
   h3 {
@@ -84,6 +91,11 @@ header {
     line-height: $headerHeight;
   }
 
+  img.menu {
+    position: absolute;
+    display: none;
+  }
+
 }
 
 nav {
@@ -92,7 +104,7 @@ nav {
   max-width: $menuWidthFullSize;
 
   li {
-    background-color: $blueBackground;
+    background-color: $backgroundColor;
   }
 
   a {
@@ -110,7 +122,7 @@ nav {
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: $blueHover;
+      background-color: $backgroundColorHover;
     }
 
     &:before {
@@ -144,9 +156,9 @@ main {
 
 .box {
   $boxPadding: 10px;
-  background-color: $blueBackground;
+  background-color: $backgroundColor;
   padding: $boxPadding;
-  padding-bottom: $boxPadding + 20px; // publication date
+  padding-bottom: $boxPadding + 40px; // publication date
   margin-bottom: $boxPadding + 10px;
   overflow: hidden;
   position: relative;
@@ -188,9 +200,9 @@ main {
 /**
  * decrease menu width on smaller screens
  */
-@media screen and (max-width: 980px) {
+html.smaller-navigation {
   header {
-    img {
+    img.logo {
       padding-left: $menuWidthMinSize / 2 - 35px;
     }
     h3 {
@@ -205,7 +217,7 @@ main {
 /**
  * hide menu text on small screens
  */
-@media screen and (max-width: 780px) {
+html.minimized-navigation {
   nav {
     z-index: 100;
     max-width: $menuIconSize + 10px;
@@ -216,7 +228,7 @@ main {
       -moz-transition: width 0.2s;
       -ms-transition: width 0.2s;
       -o-transition: width 0.2s;
-      transition: width 0.2s;
+      transition: width 10.2s;
       &:hover {
         width: $menuWidthFullSize;
         span {
@@ -224,31 +236,127 @@ main {
         }
       }
     }
-  }
-  nav a span {
-    visibility: hidden;
+    span {
+       visibility: hidden;
+    }
   }
 }
 
 /**
  * minimize header
  */
-@media screen and (max-width: 580px) {
-  $smallHeaderHeight: 50px;
+html.minimized-header {
 
   header {
-    height: $smallHeaderHeight;
-    background-color: $blueBackground;
+    height: $headerHeightSmall;
+    background-color: $backgroundColor;
     margin: 10px 10px 10px 0;
 
-    img {
-      height: $smallHeaderHeight - 10px; // padding top and bottom (=10px)
+    img.logo {
+      height: $headerHeightSmall - 10px; // padding top and bottom (=10px)
       padding: 5px 2px;
     }
     h3 {
-      font-size: 30px;
-      line-height: $smallHeaderHeight;
-      left: 70px;
+      font-size: 40px;
+      line-height: $headerHeightSmall;
+      left: 0
     }
+  }
+}
+
+/**
+ * no navigation
+ */
+html.no-navigation {
+
+  div, span, p, a {
+    font-size: 40px;
+    line-height: 50px;
+    color: $fontColor;
+  }
+  h1 {
+    font-size: 60px;
+    line-height: 75px;
+  }
+  h2 {
+    font-size: 50px;
+    line-height: 60px;
+  }
+  .box {
+    padding-bottom: 80px; // publication date
+  }
+
+  #page-wrapper {
+    max-width: none; // do not center page on high resolution displays
+  }
+
+  header {
+    height: $headerHeightMobile;
+    margin: 0;
+
+    img.logo {
+      height: $headerHeightMobile - 20px; // padding top and bottom (=20px)
+      padding: 10px;
+    }
+
+    h3 {
+      font-size: 80px;
+      line-height: $headerHeightMobile;
+    }
+
+    img.menu {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: $headerHeightMobile - 60px; // padding top and bottom (=60px)
+      padding: 30px 20px;
+      cursor: pointer;
+    }
+  }
+
+  // disable flex layout
+  .wrapper {
+    display: block;
+  }
+
+  nav {
+    flex: none;
+    position: relative;
+    background-color: $backgroundColor;
+    margin-bottom: 20px;
+    max-width: 100%;
+    height: 0;
+    overflow: hidden;
+
+    li, li:hover {
+      width: 100%;
+    }
+    a {
+      padding-left: $menuIconSizeMobile + 10;
+      &:before {
+        background-size: $menuIconSizeMobile;
+        width: $menuIconSizeMobile;
+      }
+    }
+    span {
+      visibility: visible;
+      font-size: 90px;
+      line-height: 140px;
+    }
+  }
+
+  main {
+    flex: none;
+  }
+
+  &.navigation-visible {
+    nav {
+      height: 100%;
+    }
+  }
+
+  main {
+    margin: 0;
   }
 }

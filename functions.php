@@ -31,7 +31,7 @@ function render_main_menu() {
             $title = $menu_item->title;
             $classes = implode(" ", $menu_item->classes);
             $url = make_href_root_relative($menu_item->url);
-            $menu_list .= "\t\t\t\t\t<li class=\"$classes\"><a href=\"$url\"><span>$title<span></a></li>\n";
+            $menu_list .= "\t\t\t\t\t<li class=\"$classes\"><a href=\"$url\"><span>$title</span></a></li>\n";
         }
         $menu_list .= "\t\t\t\t</ul>\n";
         $menu_list .= "\t\t\t</nav>\n";

@@ -62,6 +62,9 @@ function background() {
      * updates the position of the background image
      */
     refreshBackground = function() {
+
+        if(storage.layout.isMobile) return; // on mobile layout you can not see any background
+
         var body = {width: jq.body.width(), height: jq.body.height()};
         var neededHeight = body.height / storage.config.paralaxFactor + body.height;
         var windowRatio = body.width / neededHeight;

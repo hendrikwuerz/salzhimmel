@@ -1,9 +1,19 @@
+<?php // register mobile browser
+include_once('mobile_detect.php');
+if(!isset($mobile_detect)) $mobile_detect = new mobile_detect;
+$mobile = $mobile_detect->isMobile();
+?>
+
 <!DOCTYPE html>
 
-<html lang="<?php bloginfo('language'); ?>">
+<html lang="<?php bloginfo('language'); ?>" class="<?php echo ($mobile ? 'mobile' : 'no-mobile'); ?>">
 
 <head>
     <meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+
+    <?php if($mobile) {
+        echo '<meta name="viewport" content="width=940;" />';
+    } ?>
 
     <title><?php wp_title(' - ', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
@@ -14,6 +24,7 @@
     <script type="text/javascript">
         var theme = "<?php theme(); ?>";
     </script>
+    <script type="text/javascript" src="<?php theme(); ?>js/layout.js"></script>
     <script type="text/javascript" src="<?php theme(); ?>js/background.js"></script>
     <script type="text/javascript" src="<?php theme(); ?>js/in_page_loading.js"></script>
     <script type="text/javascript" src="<?php theme(); ?>js/script.js"></script>
@@ -29,8 +40,9 @@
 <div id="page-wrapper">
 
     <header id="header">
-        <img src="<?php theme(); ?>img/logo.png">
+        <img src="<?php theme(); ?>img/logo.png" class="logo">
         <h3><?php bloginfo('name'); ?></h3>
+        <img src="<?php theme(); ?>img/hamburger.svg" class="menu">
     </header>
 
     <div class="wrapper">

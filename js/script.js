@@ -36,6 +36,9 @@ $(function() {
      * initialize site
      */
     function init() {
+        // responsive design
+        layout();
+
         // parallax scrolling
         background();
 
@@ -44,6 +47,9 @@ $(function() {
 
         // show animation when mouse is over the logo
         logoAnimation();
+
+        // in mobile mode enable navigation fading
+        navigationFading();
     }
 
     /**
@@ -53,11 +59,19 @@ $(function() {
         var image = new Image();
         image.src = theme + 'img/logo_animated.gif'; // preloaded image
         jq.header.mouseenter(function() {
-            jq.header.find('img').attr('src', theme + 'img/logo_animated.gif');
+            if(storage.layout.isMobile) return; // on mobile layout no mouse is used -> animation is unnecessary
+            jq.header.find('img.logo').attr('src', theme + 'img/logo_animated.gif');
         });
         jq.header.mouseleave(function() {
-            jq.header.find('img').attr('src', theme + 'img/logo.png');
+            jq.header.find('img.logo').attr('src', theme + 'img/logo.png');
         });
+    }
+
+    /**
+     * enables the click listener to open and close navigation in mobile mode
+     */
+    function navigationFading() {
+        jq.header.find('img.menu').click(function(){jq.html.toggleClass('navigation-visible')})
     }
 
     init();
