@@ -7,7 +7,7 @@ Author URI: http://www.salzhimmel.de
 */
 @import 'reset';
 
-$fontColor: #000000;
+$fontColor: #3d3a27;
 $backgroundColor: #eeeeff;
 $backgroundColorDark: #ddddee;
 $backgroundColorHover: rgba(0,50,255,0.2);
@@ -30,6 +30,10 @@ div, span, p, a {
   font-size: 18px;
   line-height: 24px;
   color: $fontColor;
+}
+
+p {
+  padding: 5px 0;
 }
 
 h1 {
@@ -55,20 +59,33 @@ html.background #background {
   display: none;
 }
 
-#page-wrapper {
-  max-width: 1200px;
-  max-height: 9999999999px;
-  margin: auto;
+#status-bar {
+  position: absolute;
+  width: 100%;
+  text-align: right;
+
+  .progress {
+    width: 0;
+    position: relative;
+    height: 5px;
+    background-color: #00b020;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+  }
+
+  .login-status {
+    margin-right: 10px;
+  }
 }
 
-.wrapper {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row nowrap;
-  flex-flow: row nowrap;
+#page-wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
 }
 
 header {
@@ -84,6 +101,7 @@ header {
   h3 {
     position: absolute;
     left: $menuWidthFullSize;
+    color: #000;
     right: 0;
     top: 0;
     text-align: center;
@@ -96,6 +114,16 @@ header {
     display: none;
   }
 
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
 }
 
 nav {
@@ -284,7 +312,6 @@ html.no-navigation {
   div, span, p, a {
     font-size: 40px;
     line-height: 50px;
-    color: $fontColor;
   }
   h1 {
     font-size: 60px;

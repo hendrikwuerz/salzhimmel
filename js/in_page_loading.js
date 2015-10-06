@@ -7,12 +7,14 @@ function inPageLoading() {
 
     function init() {
         jq.nav.find('a').click(function (evt) {
+            setProgress(20);
             evt.preventDefault();
             $(evt.target).blur(); // no ugly dotted line around the link
-            var url = $(evt.target).attr('href');
+            var url = $(evt.target).closest("a").attr('href');
             console.log("Zielseite: " + url);
 
             history.pushState({}, '', url);
+            setProgress(70);
             loadPage(url);
 
             console.log("end");
@@ -45,10 +47,12 @@ function inPageLoading() {
      *          The new page which is now displayed
      */
     function ajaxLoad(html) {
+        setProgress(100);
         document.title = html
             .match(/<title>(.*?)<\/title>/)[1]
             .trim();
         refreshBackground();
+        setProgress(0);
     }
 
     init();

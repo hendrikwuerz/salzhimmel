@@ -37,6 +37,11 @@ $mobile = $mobile_detect->isMobile();
 
 <div id="background"></div>
 
+<div id="status-bar">
+    <div class="progress">&nbsp;</div>
+    <span class="login-status">Angemeldet als Hendrik</span>
+</div>
+
 <div id="page-wrapper">
 
     <header id="header">

@@ -17,6 +17,8 @@ var jq = {}; //
  */
 var storage = {};
 
+// global access to progress bar
+var setProgress;
 
 $(function() {
 
@@ -25,6 +27,8 @@ $(function() {
     jq.html = $('html');
     jq.body = $('body');
     jq.background = $('#background');
+    jq.statusbar = $('#status-bar');
+    jq.progress = jq.statusbar.find('.progress');
     jq.header = $('#header');
     jq.nav = $('nav');
     jq.main = $('main');
@@ -73,6 +77,17 @@ $(function() {
     function navigationFading() {
         jq.header.find('img.menu').click(function(){jq.html.toggleClass('navigation-visible')})
     }
+
+    /**
+     * access to the progress bar on the top of every page
+     * @param progress
+     *          progress between 0 and 100
+     */
+    setProgress = function(progress) {
+        if(progress == 0) jq.progress.css('visibility', 'hidden');
+        else jq.progress.css('visibility', 'visible');
+        jq.progress.width(progress + '%');
+    };
 
     init();
 });
