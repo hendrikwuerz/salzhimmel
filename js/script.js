@@ -51,12 +51,12 @@ $(function() {
      */
     function logoAnimation() {
         var image = new Image();
-        image.src = 'img/logo_animated.gif'; // preloaded image
+        image.src = theme + 'img/logo_animated.gif'; // preloaded image
         jq.header.mouseenter(function() {
-            jq.header.find('img').attr('src', 'img/logo_animated.gif');
+            jq.header.find('img').attr('src', theme + 'img/logo_animated.gif');
         });
         jq.header.mouseleave(function() {
-            jq.header.find('img').attr('src', 'img/logo.png');
+            jq.header.find('img').attr('src', theme + 'img/logo.png');
         });
     }
 
