@@ -26,10 +26,11 @@
 
 <div id="background"></div>
 
+<div id="page-wrapper">
 
     <header id="header">
         <img src="<?php theme(); ?>img/logo.png">
         <h3><?php bloginfo('name'); ?></h3>
     </header>
 
-<div class="wrapper">
+    <div class="wrapper">

@@ -11,11 +11,14 @@ $blueFont: #000000;
 $blueBackground: #eeeeff;
 $blueHover: rgba(0,50,255,0.2);
 $headerHeight: 100px;
-$menuWidth: 220px;
+$menuWidthFullSize: 220px;
+$menuWidthMinSize: 170px;
+$menuIconSize: 30px;
 
 body {
   position: absolute;
   min-height: 100%;
+  width: 100%;
 }
 
 div, span, p, a {
@@ -47,27 +50,33 @@ html.background #background {
   display: none;
 }
 
+#page-wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
 .wrapper {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
 }
 
-#header {
+header {
   height: $headerHeight;
+  position: relative;
 
   img {
     height: 95%;
-    padding-left: $menuWidth / 2 - 35px;
+    padding-left: $menuWidthFullSize / 2 - 35px;
   }
 
   h3 {
     position: absolute;
-    left: $menuWidth;
+    left: $menuWidthFullSize;
     right: 0;
     top: 0;
     text-align: center;
@@ -80,21 +89,25 @@ html.background #background {
 nav {
   order: 1;
   flex: 1;
-  max-width: $menuWidth;
+  max-width: $menuWidthFullSize;
 
-  ul {
+  li {
     background-color: $blueBackground;
   }
 
   a {
     position: relative;
     font-size: 20px;
-    line-height: 27px;
+    line-height: $menuIconSize + 10px; // 10px padding on top and bottom
     text-decoration: none;
     display: block;
-    padding: 5px 5px 5px 2em;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 5px 5px 5px ($menuIconSize + 10px); // icon has 5px padding and text should have 5px padding too
+
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -ms-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    transition: background-color 0.2s;
 
     &:hover {
       background-color: $blueHover;
@@ -102,12 +115,11 @@ nav {
 
     &:before {
       background: no-repeat center;
-      background-size: 1.5em;
-      width: 1.5em;
+      background-size: $menuIconSize;
+      width: $menuIconSize;
       height: 100%;
       top: 0;
-      left: 0.2em;
-      display: inline-block;
+      left: 5px;
       position: absolute;
       content: '';
     }
@@ -171,4 +183,72 @@ main {
   }
 
 
+}
+
+/**
+ * decrease menu width on smaller screens
+ */
+@media screen and (max-width: 980px) {
+  header {
+    img {
+      padding-left: $menuWidthMinSize / 2 - 35px;
+    }
+    h3 {
+      left: $menuWidthMinSize;
+    }
+  }
+  nav {
+    max-width: $menuWidthMinSize;
+  }
+}
+
+/**
+ * hide menu text on small screens
+ */
+@media screen and (max-width: 780px) {
+  nav {
+    z-index: 100;
+    max-width: $menuIconSize + 10px;
+
+    li {
+      width: $menuIconSize + 10px;
+      -webkit-transition: width 0.2s;
+      -moz-transition: width 0.2s;
+      -ms-transition: width 0.2s;
+      -o-transition: width 0.2s;
+      transition: width 0.2s;
+      &:hover {
+        width: $menuWidthFullSize;
+        span {
+          visibility: visible;
+        }
+      }
+    }
+  }
+  nav a span {
+    visibility: hidden;
+  }
+}
+
+/**
+ * minimize header
+ */
+@media screen and (max-width: 580px) {
+  $smallHeaderHeight: 50px;
+
+  header {
+    height: $smallHeaderHeight;
+    background-color: $blueBackground;
+    margin: 10px 10px 10px 0;
+
+    img {
+      height: $smallHeaderHeight - 10px; // padding top and bottom (=10px)
+      padding: 5px 2px;
+    }
+    h3 {
+      font-size: 30px;
+      line-height: $smallHeaderHeight;
+      left: 70px;
+    }
+  }
 }

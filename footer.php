@@ -1,4 +1,5 @@
-</div><!-- wrapper -->
+    </div><!-- wrapper -->
+</div><!-- page-wrapper -->
 
 <?php wp_footer(); ?>
 
