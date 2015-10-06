@@ -163,14 +163,25 @@ main {
   overflow: hidden;
   position: relative;
 
+  img.alignleft {
+    float: left;
+    margin-right: 10px;
+  }
+
+  img.aligncenter {
+    display: block;
+    margin: 10px auto;
+  }
+
+  img.alignright {
+    float: right;
+    margin-left: 10px;
+  }
+
   &.layout1 {
     h1, h2, h3 {
       text-align: center;
       margin-bottom: 5px;
-    }
-    img {
-      float: left;
-      margin-right: 10px;
     }
     .publication-date {
       position: absolute;
@@ -182,10 +193,6 @@ main {
   &.layout2 {
     h1, h2, h3 {
       text-align: center;
-    }
-    img {
-      float: right;
-      margin-left: 10px;
     }
     .publication-date {
       position: absolute;
@@ -232,12 +239,15 @@ html.minimized-navigation {
       &:hover {
         width: $menuWidthFullSize;
         span {
-          visibility: visible;
+          width: auto;
+          display: inline;
         }
       }
     }
     span {
-       visibility: hidden;
+      width: 0;
+      overflow: hidden;
+      display: inline-block;
     }
   }
 }
