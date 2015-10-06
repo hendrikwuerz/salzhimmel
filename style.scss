@@ -157,8 +157,8 @@ main {
 .box {
   $boxPadding: 10px;
   background-color: $backgroundColor;
-  padding: $boxPadding;
-  padding-bottom: $boxPadding + 40px; // publication date
+  // publication date
+  padding: $boxPadding $boxPadding $boxPadding + 40px; // publication date needs 40px
   margin-bottom: $boxPadding + 10px;
   overflow: hidden;
   position: relative;
@@ -228,7 +228,7 @@ html.minimized-navigation {
       -moz-transition: width 0.2s;
       -ms-transition: width 0.2s;
       -o-transition: width 0.2s;
-      transition: width 10.2s;
+      transition: width 0.2s;
       &:hover {
         width: $menuWidthFullSize;
         span {
@@ -266,6 +266,8 @@ html.minimized-header {
 
 /**
  * no navigation
+ * used for MOBILE layout
+ + needs 'minimal-header' enabled
  */
 html.no-navigation {
 
