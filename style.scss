@@ -306,6 +306,13 @@ html.no-navigation {
     padding-bottom: 80px; // publication date
   }
 
+  #status-bar {
+    z-index: 10;
+    .login-status {
+      display: none;
+    }
+  }
+
   #page-wrapper {
     max-width: none; // do not center page on high resolution displays
   }
@@ -360,7 +367,8 @@ html.no-navigation {
       }
     }
     span {
-      visibility: visible;
+      width: auto;
+      display: inline;
       font-size: 90px;
       line-height: 140px;
     }
