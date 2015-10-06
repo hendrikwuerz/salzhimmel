@@ -18,3 +18,24 @@ function register_main_menu() {
     );
 }
 add_action( 'init', 'register_main_menu' );
+
+/**
+ * no admin par should be shown on the live page
+ */
+add_filter('show_admin_bar', '__return_false');
+
+/**
+ * use relative paths
+ */
+function make_href_root_relative($input) {
+    return preg_replace('!http(s)?://' . $_SERVER['SERVER_NAME'] . '(/)?!', '/', $input);
+}
+add_filter( 'the_permalink', 'make_href_root_relative' );
+add_filter( 'bloginfo_url', 'make_href_root_relative' );
+
+/**
+ * get theme directory
+ */
+function theme() {
+    bloginfo('template_url'); echo "/";
+}

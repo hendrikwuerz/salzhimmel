@@ -1,26 +1,17 @@
 <?php get_header(); ?>
 
-    <div id="sidebar">
-        <?php get_sidebar(); ?>
-    </div><!-- sidebar -->
+    <?php get_sidebar(); ?>
 
-    <div id="main">
+    <main>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            <h2><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
-            <div id="meta">
-                <p>erstellt am: <?php the_date('d.m.Y'); ?> |
-                    von: <?php the_author(); ?> |
-                    Kategorie(n): <?php the_category(', '); ?></p>
-            </div>
-            <div class="entry">
+            <div class="box layout1">
+                <h2><?php the_title(); ?></h2>
+                <img src="<?php theme(); ?>img/testbild.jpg" alt="testbild">
                 <?php the_content(); ?>
+                <p class="publication-date">Veröffentlicht am <time datetime="<?php echo get_the_date('Y-m-d G:i'); ?>"><?php echo get_the_date('j. F Y'); ?></time></p>
             </div>
-        <?php endwhile; ?>
+        <?php endwhile; endif; ?>
 
-            <p align="center"><?php next_posts_link('&laquo; &Auml;ltere Eintr&auml;ge') ?> | <?php previous_posts_link('Neuere Eintr&auml;ge &raquo;') ?></p>
-
-        <?php endif; ?>
-
-    </div><!-- main -->
+    </main><!-- main -->
 <?php get_footer(); ?>
