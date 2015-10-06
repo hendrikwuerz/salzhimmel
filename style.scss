@@ -180,6 +180,7 @@ main {
   flex: 2;
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 100px;
 }
 
 .box {
@@ -206,29 +207,9 @@ main {
     margin-left: 10px;
   }
 
-  &.layout1 {
-    h1, h2, h3 {
-      text-align: center;
-      margin-bottom: 5px;
-    }
-    .publication-date {
-      position: absolute;
-      bottom: $boxPadding;
-      right: $boxPadding;
-    }
+  &.no-date { // this box has no publication date. So no extra space is needed.
+    padding: $boxPadding;
   }
-
-  &.layout2 {
-    h1, h2, h3 {
-      text-align: center;
-    }
-    .publication-date {
-      position: absolute;
-      bottom: $boxPadding;
-      left: $boxPadding;
-    }
-  }
-
 
 }
 
