@@ -51,7 +51,7 @@ function inPageLoading() {
         document.title = html
             .match(/<title>(.*?)<\/title>/)[1]
             .trim();
-        refreshBackground();
+        recalculateBackground();
         setProgress(0);
     }
 

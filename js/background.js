@@ -2,6 +2,7 @@
  * Created by hendrik on 01.10.15.
  */
 
+var recalculateBackground;
 var refreshBackground;
 
 function background() {
@@ -11,6 +12,7 @@ function background() {
     storage.background.width = 0;
     storage.background.height = 0;
     storage.background.ratio = 0;
+    storage.background.currentPos = 0;
 
     /**
      * initialize the background parallax scrolling
@@ -26,7 +28,7 @@ function background() {
     function setListener() {
         // enable parallax scrolling
         jq.window.scroll(refreshBackground);
-        jq.window.resize(refreshBackground);
+        jq.window.resize(recalculateBackground);
     }
 
     /**
@@ -51,7 +53,7 @@ function background() {
                 storage.background.height = image.height;
                 storage.background.ratio = image.width / image.height;
 
-                refreshBackground(); // layout background
+                recalculateBackground(); // layout background
                 jq.html.addClass('background'); // display image
             });
             image.src = image_url;
@@ -59,11 +61,9 @@ function background() {
     }
 
     /**
-     * updates the position of the background image
+     * recalculates needed data for basic layout of the background
      */
-    refreshBackground = function() {
-
-        if(storage.layout.isMobile) return; // on mobile layout you can not see any background
+    recalculateBackground = function() {
 
         var body = {width: jq.body.width(), height: jq.body.height()};
         var neededHeight = body.height / storage.config.paralaxFactor + body.height;
@@ -75,7 +75,23 @@ function background() {
             jq.background.css('background-size', 'auto ' + neededHeight + 'px');
         }
 
-        jq.background.css('margin-top', '-' + (jq.window.scrollTop() / storage.config.paralaxFactor)+ "px");
+        // update the position after changes
+        refreshBackground();
+
+    };
+
+    /**
+     * updates the position of the background image
+     */
+    refreshBackground = function() {
+
+        if(storage.layout.isMobile) return; // on mobile layout you can not see any background
+
+        var pos = parseInt(jq.window.scrollTop() / storage.config.paralaxFactor);
+
+        if(pos == storage.background.currentPos) return; // do not touch css if nothing is changed
+
+        jq.background.css('margin-top', '-' + pos + 'px');
     };
 
     init();
