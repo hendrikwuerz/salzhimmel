@@ -46,6 +46,17 @@ h2 {
   line-height: 38px;
 }
 
+div.copyright {
+  font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+  border: 1px solid black;
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  &, div, span, p, a {
+    font-size: smaller;
+  }
+}
+
 html.background #background {
   display: block;
 }
@@ -205,6 +216,12 @@ main {
   img.alignright {
     float: right;
     margin-left: 10px;
+  }
+
+  li {
+    list-style: disc outside none;
+    margin-left: 20px;
+    padding: 5px;
   }
 
   &.no-date { // this box has no publication date. So no extra space is needed.
