@@ -15,7 +15,7 @@
         <?php endwhile; endif; ?>
 
         <footer class="box no-date">
-            Diese Seite wird von Hendrik Würz entwicketl und betrieben. Bitte lesen Sie das <a href="/impressum">Impressum</a> für weiter Informationen.
+            Diese Seite wird von Hendrik Würz entwickelt und betrieben. Bitte lesen Sie das <a href="/impressum">Impressum</a> für weiter Informationen.
         </footer>
 
     </main><!-- main -->

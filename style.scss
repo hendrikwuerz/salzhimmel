@@ -46,6 +46,12 @@ h2 {
   line-height: 38px;
 }
 
+code, code span {
+  font-size: 15px;
+  font-family: monospace;
+  line-height: normal;
+}
+
 div.copyright {
   font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
   border: 1px solid black;
@@ -202,6 +208,10 @@ main {
   margin-bottom: $boxPadding + 10px;
   overflow: hidden;
   position: relative;
+
+  img {
+    margin: 10px 0;
+  }
 
   img.alignleft {
     float: left;

@@ -49,6 +49,9 @@ $(function() {
         // swap <main> part on page and do not reload all
         inPageLoading();
 
+        // layout code on the website
+        hljs.initHighlightingOnLoad();
+
         // show animation when mouse is over the logo
         logoAnimation();
 
