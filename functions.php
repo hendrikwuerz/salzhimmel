@@ -75,7 +75,7 @@ function theme() {
  */
 function custom_upload_mimes ( $existing_mimes=array() ) {
     // add the file extension to the array
-    $existing_mimes['svg'] = 'mime/type';
+    $existing_mimes['svg'] = 'image/svg+xml';
     $existing_mimes['jar'] = 'mime/type';
     $existing_mimes['java'] = 'mime/type';
     // call the modified list of extensions 
