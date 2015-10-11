@@ -16,6 +16,7 @@ function inPageLoading() {
             history.pushState({}, '', url);
             setProgress(70);
             loadPage(url);
+            jq.html.removeClass('navigation-visible');
 
             console.log("end");
 
