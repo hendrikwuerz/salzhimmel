@@ -48,13 +48,18 @@ h2 {
 
 pre {
   clear: both;
-  box-sizing: border-box;
+  overflow-x: scroll;
 }
 
-code, code span {
+code.hljs, code.hljs span {
   font-size: 15px;
   font-family: monospace;
   line-height: normal;
+  overflow: visible;
+}
+
+.clear {
+  clear: both;
 }
 
 div.copyright {
@@ -65,6 +70,43 @@ div.copyright {
   margin: 5px 0;
   &, div, span, p, a {
     font-size: smaller;
+  }
+}
+
+a.hover-cube {
+  display: inline-block;
+  .hover-cube-wrapper {
+    $size: 200px;
+    display: inline-block;
+    position: relative;
+    padding: 0 $size / 4;
+    overflow: hidden;
+    &, .default, .hover {
+      height: $size;
+      width: $size;
+    }
+    .default, .hover {
+      position: absolute;
+      transition: transform 0.4s ease-in-out;
+      line-height: $size;
+      text-align: center;
+    }
+    .default {
+      transform: rotateY(0deg) translateZ($size / 2);
+    }
+    .hover {
+      transform: rotateY(-90deg) translateZ($size / 2);
+      background-color: $backgroundColorHover;
+      border-radius: $size / 2;
+    }
+    &:hover {
+      .default {
+        transform: rotateY(90deg) translateZ($size / 2);
+      }
+      .hover {
+        transform: rotateY(0deg) translateZ($size / 2);
+      }
+    }
   }
 }
 
@@ -91,10 +133,6 @@ html.background #background {
     position: relative;
     height: 5px;
     background-color: #00b020;
-    -webkit-transition: width 0.3s;
-    -moz-transition: width 0.3s;
-    -ms-transition: width 0.3s;
-    -o-transition: width 0.3s;
     transition: width 0.3s;
   }
 
@@ -165,11 +203,6 @@ nav {
     text-decoration: none;
     display: block;
     padding: 5px 5px 5px ($menuIconSize + 10px); // icon has 5px padding and text should have 5px padding too
-
-    -webkit-transition: background-color 0.2s;
-    -moz-transition: background-color 0.2s;
-    -ms-transition: background-color 0.2s;
-    -o-transition: background-color 0.2s;
     transition: background-color 0.2s;
 
     &:hover {
@@ -274,10 +307,6 @@ html.minimized-navigation {
 
     li {
       width: $menuIconSize + 10px;
-      -webkit-transition: width 0.2s;
-      -moz-transition: width 0.2s;
-      -ms-transition: width 0.2s;
-      -o-transition: width 0.2s;
       transition: width 0.2s;
       &:hover {
         width: $menuWidthFullSize;
@@ -332,6 +361,19 @@ html.no-navigation {
     font-size: 50px;
     line-height: 60px;
   }
+
+  a.hover-cube {
+    .default, .hover {
+      transition: initial;
+    }
+    .default {
+      transform: rotateY(90deg) translateZ(200px / 2);
+    }
+    .hover {
+      transform: rotateY(0deg) translateZ(200px / 2);
+    }
+  }
+
   .box {
     padding-bottom: 80px; // publication date
   }
